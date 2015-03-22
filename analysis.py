@@ -109,9 +109,6 @@ def _search_data(content, date):
     else:
         return
 
-def filter_data(year=None, month=None, day=None):
-    global filter_year
-    filter_year=year
 
 def get_updated_date(file):
     f = open(file,"r")
@@ -123,6 +120,7 @@ def get_updated_date(file):
     return datetime.date(*[int(i) for i in dates.groups()])
 
 def check_data():
+    print('checking data.')
     #the day data lost
     # 2014-12-12 【昨日客流】12月12日全线网客运量为166.2万人次。
     # 2014-12-13 【昨日客流】南京地铁12月13日全线网客运量为151.2万人次
@@ -172,11 +170,18 @@ def get_passenger_flow_data(file, check=False):
     print('line S8 records: {0}'.format(len(data_S8[0])))
     if check:
         check_data()
-    
-filter_year = None
-#filter_data(year=2015)
 
-get_passenger_flow_data('./passenger-flow-weibos.txt', check=False)
+
+check = False
+filter_year = None
+if len(sys.argv) > 1:
+    if sys.argv[1].isdigit() and int(sys.argv[1]) > 2011:
+        filter_year = int(sys.argv[1])
+    elif sys.argv[1] == 'check':
+        check = True
+
+
+get_passenger_flow_data('./passenger-flow-weibos.txt', check=check)
 
 datas = [{'x': data_total[0], 'y':data_total[1], 'color':'#999999', 'linewidth':1.5, 'label':'total'},
         {'x': data_1[0],     'y':data_1[1],     'color':'#13A1E6', 'linewidth':1, 'label':'Line  1'},
@@ -187,8 +192,8 @@ datas = [{'x': data_total[0], 'y':data_total[1], 'color':'#999999', 'linewidth':
 ]
 
 if filter_year:
-    show = DrawFigure(datas, datarange='year')
+    show = DrawFigure(datas, year=filter_year, update=updated_date.isoformat())
 else:
-    show = DrawFigure(datas)
+    show = DrawFigure(datas, update=updated_date.isoformat())
 show.draw()
 
