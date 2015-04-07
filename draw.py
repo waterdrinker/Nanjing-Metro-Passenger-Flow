@@ -37,7 +37,7 @@ class DrawFigure():
         monthsFmt = mdates.DateFormatter('%b')  #%b
 
         # format the ticks
-        self.ax.set_yticks([0,20,40,60,80,100,120,140,160,180,200,220])
+        self.ax.set_yticks([0,20,40,60,80,100,120,140,160,180,200,220,240,260])
         self.ax.xaxis.set_major_locator(years)
         self.ax.xaxis.set_major_formatter(yearsFmt)
         self.ax.xaxis.set_minor_locator(months)
@@ -55,7 +55,7 @@ class DrawFigure():
 
         #ax.plot(data_total[0], data_total[1])
         # format the ticks
-        self.ax.set_yticks([0,20,40,60,80,100,120,140,160,180,200,220])
+        self.ax.set_yticks([0,20,40,60,80,100,120,140,160,180,200,220,240,260])
         self.ax.xaxis.set_major_locator(mdates.WeekdayLocator(mdates.MONDAY))
         self.ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
         self.ax.xaxis.set_minor_locator(mdates.DayLocator())
@@ -99,7 +99,7 @@ class DrawFigure():
         plt.title(title, fontproperties=self.font_title) # plot title
         plt.ylabel('客运量 (万)',fontproperties=self.font_label) # Y label
         #plt.xlabel('date') # X label
-        plt.ylim(0, 220)
+        plt.ylim(0, 260)
         #pl.xlim(0.0, 9.0)# set axis limits
 
         plt.savefig('img/'+fname)

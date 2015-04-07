@@ -10,13 +10,18 @@ updated_date=None
 start_date=datetime.date(2012,9,7)
 L10_start_date=datetime.date(2014,7,1)
 S8_start_date=datetime.date(2014,8,1)
+L3_start_date=datetime.date(2015,4,1)
 
 data_total = [[],[]]
 data_1     = [[],[]]
 data_2     = [[],[]]
+data_3     = [[],[]]
 data_10    = [[],[]]
 data_S1    = [[],[]]
 data_S8    = [[],[]]
+# 4 #8873c7
+# 5 #c1caee
+# s3 #c188b8
 
 
 def write_date_content(file, date, content):
@@ -68,6 +73,22 @@ def _search_data(content, date):
             data_2[1].append(line_2)
     else:
         return
+
+    # line 3
+    if date >= L3_start_date:
+        find = re.search('(3|三)号线(?P<line_3>\d+(\.\d+)?)', content)
+        if find:
+            line_3 = float(find.group('line_3'))
+            if len(data_3[0])>0:
+                try:
+                    assert data_3[0][-1] == date - datetime.timedelta(days=1)
+                except AssertionError:
+                    print('ERROR: Line 3 error date: ', sep='', end='')
+                    print(date)
+            if line_3:
+                data_3[0].append(date)
+                data_3[1].append(line_3)
+
     
     #十号线 机场线
     #十号线11.30,机场线5.00.主要车站:新街口站12.18(以上单位:万人次)
@@ -163,8 +184,10 @@ def get_passenger_flow_data(file, check=False):
             _search_data(line[10:], date)
     
     print('passage flow records: {0}'.format(count))
+    print('total   records: {0}'.format(len(data_total[0])))
     print('line  1 records: {0}'.format(len(data_1[0])))
     print('line  2 records: {0}'.format(len(data_2[0])))
+    print('line  3 records: {0}'.format(len(data_3[0])))
     print('line 10 records: {0}'.format(len(data_10[0])))
     print('line S1 records: {0}'.format(len(data_S1[0])))
     print('line S8 records: {0}'.format(len(data_S8[0])))
@@ -184,11 +207,12 @@ if len(sys.argv) > 1:
 get_passenger_flow_data('./passenger-flow-weibos.txt', check=check)
 
 datas = [{'x': data_total[0], 'y':data_total[1], 'color':'#999999', 'linewidth':1.5, 'label':'total'},
-        {'x': data_1[0],     'y':data_1[1],     'color':'#13A1E6', 'linewidth':1, 'label':'Line  1'},
-        {'x': data_2[0],     'y':data_2[1],     'color':'#E40011', 'linewidth':1, 'label':'Line  2'},
-        {'x': data_10[0],    'y':data_10[1],    'color':'#D1AE61', 'linewidth':1, 'label':'Line 10'},
-        {'x': data_S1[0],    'y':data_S1[1],    'color':'#4BBBB4', 'linewidth':1, 'label':'Line S1'},
-        {'x': data_S8[0],    'y':data_S8[1],    'color':'#F28C4D', 'linewidth':1, 'label':'Line S8'}
+        {'x': data_1[0],     'y':data_1[1],     'color':'#00a7d2', 'linewidth':1, 'label':'Line  1'},
+        {'x': data_2[0],     'y':data_2[1],     'color':'#c4013e', 'linewidth':1, 'label':'Line  2'},
+        {'x': data_3[0],     'y':data_3[1],     'color':'#00a260', 'linewidth':1, 'label':'Line  3'},
+        {'x': data_10[0],    'y':data_10[1],    'color':'#eac18b', 'linewidth':1, 'label':'Line 10'},
+        {'x': data_S1[0],    'y':data_S1[1],    'color':'#6fd7cc', 'linewidth':1, 'label':'Line S1'},
+        {'x': data_S8[0],    'y':data_S8[1],    'color':'#f1a25c', 'linewidth':1, 'label':'Line S8'}
 ]
 
 if filter_year:
