@@ -207,12 +207,12 @@ if len(sys.argv) > 1:
 get_passenger_flow_data('./passenger-flow-weibos.txt', check=check)
 
 datas = [{'x': data_total[0], 'y':data_total[1], 'color':'#999999', 'linewidth':1.5, 'label':'total'},
-        {'x': data_1[0],     'y':data_1[1],     'color':'#00a7d2', 'linewidth':1, 'label':'Line  1'},
-        {'x': data_2[0],     'y':data_2[1],     'color':'#c4013e', 'linewidth':1, 'label':'Line  2'},
-        {'x': data_3[0],     'y':data_3[1],     'color':'#00a260', 'linewidth':1, 'label':'Line  3'},
-        {'x': data_10[0],    'y':data_10[1],    'color':'#eac18b', 'linewidth':1, 'label':'Line 10'},
-        {'x': data_S1[0],    'y':data_S1[1],    'color':'#6fd7cc', 'linewidth':1, 'label':'Line S1'},
-        {'x': data_S8[0],    'y':data_S8[1],    'color':'#f1a25c', 'linewidth':1, 'label':'Line S8'}
+        {'x': data_1[0],     'y':data_1[1],     'color':'#00a2df', 'linewidth':1, 'label':'Line  1'},
+        {'x': data_2[0],     'y':data_2[1],     'color':'#c7003f', 'linewidth':1, 'label':'Line  2'},
+        {'x': data_3[0],     'y':data_3[1],     'color':'#009651', 'linewidth':1, 'label':'Line  3'},
+        {'x': data_10[0],    'y':data_10[1],    'color':'#eac384', 'linewidth':1, 'label':'Line 10'},
+        {'x': data_S1[0],    'y':data_S1[1],    'color':'#4bbbb4', 'linewidth':1, 'label':'Line S1'},
+        {'x': data_S8[0],    'y':data_S8[1],    'color':'#eca153', 'linewidth':1, 'label':'Line S8'}
 ]
 
 if filter_year:
